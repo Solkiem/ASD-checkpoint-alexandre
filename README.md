@@ -118,3 +118,19 @@ root@checkpoint1-alexandre-152:/home/share# su - wilder
  - Memory used.........: 25Mi  
 =============================  
 wilder@checkpoint1-alexandre-152:~$  
+
+### 2.2 Question : quelles sont les adresses ip propre au conteneur ?
+
+wilder@checkpoint1-alexandre-152:~$ ip addr show  
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000  
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00  
+    inet 127.0.0.1/8 scope host lo  
+       valid_lft forever preferred_lft forever  
+    inet6 ::1/128 scope host noprefixroute  
+       valid_lft forever preferred_lft forever  
+2: CTNetwork@if386: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000  
+    link/ether bc:24:11:ab:ec:57 brd ff:ff:ff:ff:ff:ff link-netnsid 0  
+    inet6 2a01:4f8:141:53ea::152/64 scope global  
+       valid_lft forever preferred_lft forever  
+    inet6 fe80::be24:11ff:feab:ec57/64 scope link  
+       valid_lft forever preferred_lft forever  
