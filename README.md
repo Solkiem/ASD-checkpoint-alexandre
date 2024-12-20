@@ -351,3 +351,88 @@ It the fact that you are able to modify constantly our app, without being blocke
 ### 5.10 Que signifie la notion de "provisionning" pour un administrateur système DevOps ?
 
 It is the process to setup an infrastructure and manage acess to the data. So you have to manage security acess, user creation and permissions.
+
+## Partie 6 : Administration système et réseau
+
+### 6.1 Manipulation : installer un outil de surveillance de l'activité réseau d'un conteneur
+
+#### Se connecter au conteneur distant avec un compte ayant les droits super utilisateur (sudo)
+
+wilder@checkpoint1-alexandre-152:~$ sudo whoami
+[sudo] password for wilder: 
+root
+
+#### Chercher et installer un outil, accessible uniquement en ligne de commande, permettant de monitorer le trafic sur une interface réseau spécifique du conteneur
+
+I'll use iftop  
+
+wilder@checkpoint1-alexandre-152:~$ sudo apt update  
+sudo apt install iftop  
+Hit:1 http://deb.debian.org/debian bookworm InRelease  
+Hit:2 http://deb.debian.org/debian bookworm-updates InRelease  
+Hit:3 http://security.debian.org bookworm-security InRelease  
+Reading package lists... Done  
+Building dependency tree... Done  
+Reading state information... Done  
+57 packages can be upgraded. Run 'apt list --upgradable' to see them.  
+Reading package lists... Done  
+Building dependency tree... Done  
+Reading state information... Done  
+The following additional packages will be installed:  
+  libgpm2 libncurses6 libpcap0.8  
+Suggested packages:  
+  gpm  
+The following NEW packages will be installed:  
+  iftop libgpm2 libncurses6 libpcap0.8  
+0 upgraded, 4 newly installed, 0 to remove and 57 not upgraded.  
+Need to get 313 kB of archives.  
+After this operation, 861 kB of additional disk space will be used.  
+Do you want to continue? [Y/n] Y  
+Get:1 http://deb.debian.org/debian bookworm/main amd64 libncurses6 amd64 6.4-4 [103 kB]  
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libpcap0.8 amd64 1.10.3-1 [157 kB]  
+Get:3 http://deb.debian.org/debian bookworm/main amd64 iftop amd64 1.0~pre4-9 [38.5 kB]  
+Get:4 http://deb.debian.org/debian bookworm/main amd64 libgpm2 amd64 1.20.7-10+b1 [14.2 kB]  
+Fetched 313 kB in 0s (8,419 kB/s)  
+Selecting previously unselected package libncurses6:amd64.  
+(Reading database ... 19507 files and directories currently installed.)  
+Preparing to unpack .../libncurses6_6.4-4_amd64.deb ...  
+Unpacking libncurses6:amd64 (6.4-4) ...  
+Selecting previously unselected package libpcap0.8:amd64.  
+Preparing to unpack .../libpcap0.8_1.10.3-1_amd64.deb ...  
+Unpacking libpcap0.8:amd64 (1.10.3-1) ...  
+Selecting previously unselected package iftop.  
+Preparing to unpack .../iftop_1.0~pre4-9_amd64.deb ...  
+Unpacking iftop (1.0~pre4-9) ...  
+Selecting previously unselected package libgpm2:amd64.  
+Preparing to unpack .../libgpm2_1.20.7-10+b1_amd64.deb ...  
+Unpacking libgpm2:amd64 (1.20.7-10+b1) ...  
+Setting up libgpm2:amd64 (1.20.7-10+b1) ...  
+Setting up libpcap0.8:amd64 (1.10.3-1) ...  
+Setting up libncurses6:amd64 (6.4-4) ...  
+Setting up iftop (1.0~pre4-9) ...  
+Processing triggers for man-db (2.11.2-2) ...  
+Processing triggers for libc-bin (2.36-9+deb12u4) ... 
+
+#### Monitorer l'interface "eth0"
+I used the network I created CTNetwork here :
+
+wilder@checkpoint1-alexandre-152:~$ sudo iftop -t
+interface: CTNetwork
+IPv6 address is: 2a01:4f8:141:53ea::152
+MAC address is: bc:24:11:ab:ec:57
+
+wilder@checkpoint1-alexandre-152:~$ sudo iftop CTNetwork
+
+
+  12.5Kb                          25.0Kb                          37.5Kb                          50.0Kb                    62.5Kb
+mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+TX:             cum:      0B    peak:      0b                                                                                   rates:      0b      0b      0b
+RX:                       0B               0b                                                                                               0b      0b      0b
+
+#### Faire un rapport d'analyse (décrire ce que tu vois et quel outil tu as utilisé)
+
+`sudo iftop -t` shows me the Network (ips) on my container
+
+`sudo iftop CTNetwork` shows me (not the most readable way unfortunatly), the traffic on CTNetwork
