@@ -420,6 +420,39 @@ wilder@checkpoint1-alexandre-152:~$ sudo iftop -t
 interface: CTNetwork
 IPv6 address is: 2a01:4f8:141:53ea::152
 MAC address is: bc:24:11:ab:ec:57
+Listening on CTNetwork
+   # Host name (port/service if enabled)            last 2s   last 10s   last 40s cumulative
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Total send rate:                                         0b         0b         0b
+Total receive rate:                                      0b         0b         0b
+Total send and receive rate:                             0b         0b         0b
+--------------------------------------------------------------------------------------------
+Peak rate (sent/received/total):                         0b         0b         0b
+Cumulative (sent/received/total):                        0B         0B         0B
+============================================================================================
+
+   # Host name (port/service if enabled)            last 2s   last 10s   last 40s cumulative
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Total send rate:                                         0b         0b         0b
+Total receive rate:                                      0b         0b         0b
+Total send and receive rate:                             0b         0b         0b
+--------------------------------------------------------------------------------------------
+Peak rate (sent/received/total):                         0b         0b         0b
+Cumulative (sent/received/total):                        0B         0B         0B
+============================================================================================
+
+   # Host name (port/service if enabled)            last 2s   last 10s   last 40s cumulative
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Total send rate:                                         0b         0b         0b
+Total receive rate:                                      0b         0b         0b
+Total send and receive rate:                             0b         0b         0b
+--------------------------------------------------------------------------------------------
+Peak rate (sent/received/total):                         0b         0b         0b
+Cumulative (sent/received/total):                        0B         0B         0B
+============================================================================================
 
 wilder@checkpoint1-alexandre-152:~$ sudo iftop CTNetwork
 
@@ -431,8 +464,10 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 TX:             cum:      0B    peak:      0b                                                                                   rates:      0b      0b      0b
 RX:                       0B               0b                                                                                               0b      0b      0b
 
+
+
 #### Faire un rapport d'analyse (décrire ce que tu vois et quel outil tu as utilisé)
 
-`sudo iftop -t` shows me the Network (ips) on my container
+`sudo iftop -t` shows me the Network (ips) on my container and traffic on CTNetwork
 
 `sudo iftop CTNetwork` shows me (not the most readable way unfortunatly), the traffic on CTNetwork
