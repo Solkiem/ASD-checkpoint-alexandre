@@ -267,3 +267,87 @@ So root wont be accessible from outside.
 
 ### 4.1 Manipulation : script bash de connexion distante
 
+GNU nano 7.2     /etc/systemd/system/sockets.target.wants/ssh.socket                                                    
+[Unit]
+Description=OpenBSD Secure Shell server socket
+Before=sockets.target
+ConditionPathExists=!/etc/ssh/sshd_not_to_be_run
+
+[Socket]
+ListenStream=719
+Accept=no
+
+[Install]
+WantedBy=sockets.target
+root@checkpoint1-alexandre-152:~# systemctl daemon-reload
+root@checkpoint1-alexandre-152:~# systemctl restart ssh
+root@checkpoint1-alexandre-152:~# systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2024-12-20 12:21:06 CET; 3s ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 1832 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 1833 (sshd)
+      Tasks: 1 (limit: 76989)
+     Memory: 1.4M
+        CPU: 16ms
+     CGroup: /system.slice/ssh.service
+             └─1833 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Dec 20 12:21:06 checkpoint1-alexandre-152 systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Dec 20 12:21:06 checkpoint1-alexandre-152 sshd[1833]: Server listening on :: port 719.
+Dec 20 12:21:06 checkpoint1-alexandre-152 systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+
+Didn't succeed here i don't why my ipv6 adress isn't reachable.
+
+### 4.2 Question : Qu'est censé faire le script Bash ci-dessous ?
+
+It checks the CPU usage of the machine, then if the MAX (95 here) is exceeded it will send an email to : "wilder@email.sh"  
+
+### 4.2 Question : Est-ce que l'utilisateur "wilder" va pouvoir installer des paquets logiciels tels que apache ou nginx ? Que la réponse soit oui ou non, expliquer pourquoi en quelques mots
+
+wilder isn't a sudoers so he won't be able to install packages. If you want him to be able to you need to edit sudoers file and add him to the list.
+
+## Partie 5 : 10 questions sur le thème DevOps
+
+### 5.1 Qu'est-ce que l'infrastructure as code (IaC) ?
+
+It's a process that ables you to help to configure infrastructure, it will allow you to do it faster, it helps automation. Some known tools : Terraform, OpenTofu, Ansible ...  
+
+### Est-ce que Docker est une nécessité dans le milieu DevOps ? (Expliquer la réponse)
+
+No it isn't MANDATORY, no tools are mandatory to do a task, but it can help a lot because docker is a very powerful and well maintained, have a huge community. It a nice tool to know how to use it, nice tool to use. But it isn't mandatory.
+
+### 5.3 Qu'est-ce qu'une pipeline CI/CD ?
+
+CI/CD stands for Continuous Integration / Continuous Deployment. So a pipleline CI/CD is a tool that allow you to run builds, tests etc ... to facilitate and ables you to automate those tasks. It will make the realease of your app a lot smoother, if you configure it well and will catch a lot of problems before the realease so you will not have them on your app when you realease it. Known tools : Gitlab CI/CD, Github actions etc ...
+
+### 5.4 Quel outil (logiciel) utiliserais tu pour gérer des configurations serveurs à distance ?
+
+openSSH
+
+### 5.5 Que signifie le terme "scalabilité" pour le milieu DevOps ?
+
+Le fait d'avoir un logiciel / app ... évolutive, qui peut s'adapter aux modifications, montées de charges etc ...
+
+### 5.6 Quel est le principal rôle d'un administrateur système DevOps en entreprise ?
+
+To be a facilitator for the system administration tasks performed in the company, in the sense that we will optimize, via scripts to automate, via tools (such as Docker, OpenTofu etc.), tasks that can be tedious, expensive (in money and/or time) if not optimize. He will have to monitor the optimization implemented and evolve it to meet the needs of the company.
+
+### 5.7 Quel outil (plateforme) utiliserais tu pour créer une pipeline de déploiement logiciel ?
+
+Github actions or Gitlab CI/CD
+
+### 5.8 Quels types d'environnements mettrais tu en place avant une mise en production de logiciel ?
+
+I would use a container for our app, for example using docker, to do isolated tests to verify that our app is working well.
+
+### 5.9 Qu'est-ce que signifie exactement la notion d'intégration continue (CI) ?
+
+It the fact that you are able to modify constantly our app, without being blocked by heavy process or working habits that blocked little features or hotfixes to be realeased. You are able to work with agile methodology with CI.
+
+### 5.10 Que signifie la notion de "provisionning" pour un administrateur système DevOps ?
+
+It is the process to setup an infrastructure and manage acess to the data. So you have to manage security acess, user creation and permissions.
